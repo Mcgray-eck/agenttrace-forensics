@@ -1,3 +1,6 @@
+from src.tools.file_reader import read_file
+
+
 def decide_action(user_input: str) -> dict:
     text = user_input.lower()
 
@@ -21,6 +24,13 @@ def main():
 
     print("Agent decision:")
     print(decision)
+
+    if decision["type"] == "tool_request":
+        if decision["tool"] == "read_file":
+            result = read_file(decision["path"])
+
+            print("Tool result:")
+            print(result)
 
 
 if __name__ == "__main__":
