@@ -34,21 +34,18 @@ def main():
 
     if decision["type"] == "tool_request":
         if decision["tool"] == "read_file":
+            policy_result = check_file_access(decision["path"])
 
-            if check_file_access(decision["path"]):
-                print("Policy decision: ALLOW")
+            print("Policy decision:")
+            print(policy_result)
 
+            if policy_result["policy_decision"] == "ALLOW":
                 result = read_file(decision["path"])
 
                 print("Tool result:")
                 print(result)
-
             else:
-                print("Policy decision: DENY")
-                print("Tool execution blocked.")
-
-    else:
-        print(decision["message"])
+                print("Tool blocked.")
 
 if __name__ == "__main__":
     main()
